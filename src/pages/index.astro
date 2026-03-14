@@ -13,38 +13,92 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<section class="hero">
+				<h1>Dipper Digital</h1>
+				<p class="tagline">Independent game & web projects crafted with care.</p>
+			</section>
+
+			<section class="projects">
+				<a class="project-card stonk" href="https://stonkbattle.com" target="_blank" rel="noopener noreferrer">
+					<div class="project-icon">📈</div>
+					<h2>StonkBattle</h2>
+					<p>A fast-paced stock market battle game. Pick your stocks, outsmart your rivals, and rise to the top of the leaderboard.</p>
+					<span class="project-link">stonkbattle.com →</span>
+				</a>
+
+				<a class="project-card wyrd" href="https://wyrdroot.com" target="_blank" rel="noopener noreferrer">
+					<div class="project-icon">🌿</div>
+					<h2>WyrdRoot</h2>
+					<p>An immersive narrative experience rooted in folklore and fate. Explore branching stories shaped by your choices.</p>
+					<span class="project-link">wyrdroot.com →</span>
+				</a>
+			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.hero {
+		text-align: center;
+		padding: 3em 1em 2em;
+	}
+	.hero h1 {
+		font-size: 3rem;
+		margin-bottom: 0.4em;
+	}
+	.tagline {
+		font-size: 1.2rem;
+		color: rgb(var(--gray));
+		margin: 0;
+	}
+	.projects {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 2em;
+		margin-top: 3em;
+	}
+	.project-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75em;
+		padding: 2em;
+		border-radius: 12px;
+		border: 1px solid rgb(var(--gray-light));
+		background: #fff;
+		box-shadow: var(--box-shadow);
+		text-decoration: none;
+		color: inherit;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+	.project-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 8px 30px rgba(var(--gray), 30%);
+		color: inherit;
+	}
+	.project-icon {
+		font-size: 2.5rem;
+		line-height: 1;
+	}
+	.project-card h2 {
+		font-size: 1.6rem;
+		margin: 0;
+	}
+	.project-card p {
+		color: rgb(var(--gray));
+		font-size: 1rem;
+		margin: 0;
+		flex: 1;
+	}
+	.project-link {
+		font-weight: 700;
+		font-size: 0.95rem;
+		color: var(--accent);
+	}
+	.stonk {
+		border-top: 4px solid #2ecc71;
+	}
+	.wyrd {
+		border-top: 4px solid #8e44ad;
+	}
+</style>
