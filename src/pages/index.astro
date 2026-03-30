@@ -14,26 +14,44 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	<body>
 		<Header />
 		<main>
+
+			<img src="dd1.png"/>
+
 			<section class="hero">
 				<h1>Dipper Digital</h1>
 				<p class="tagline">Independent game & web projects from Steven Lykins.</p>
 			</section>
 
 			<section class="projects">
-				<a class="project-card stonk" href="https://stonkbattle.com" target="_blank" rel="noopener noreferrer">
+				<div class="project-card stonk">
 					<h2>stonkbattle</h2>
 					<p>Stock market prediction game. Rank random securities, outsmart other players, and rise to the top of the leaderboard.</p>
-					<span class="project-link">stonkbattle.com →</span>
+					<a href="https://stonkbattle.com" target="_blank" rel="noopener noreferrer" class="project-link">stonkbattle.com →</a>
 					<p>Made with Svelte</p>
-				</a>
+				</div>
 
-				<a class="project-card wyrd" href="https://wyrdroot.com" target="_blank" rel="noopener noreferrer">
+				<div class="project-card wyrd">
 					<h2>WyrdRoot</h2>
 					<small>(Closed Alpha Soon)</small>
 					<p>A nature-themed massively multiplayer online browser game, with resource management and strategy elements.</p>
-					<span class="project-link">wyrdroot.com →</span>
+					<a href="https://wyrdroot.com" target="_blank" rel="noopener noreferrer" class="project-link">wyrdroot.com →</a>
 					<p>Made with Laravel/Vue</p>
-				</a>
+				</div>
+
+				<div class="project-card astroprisma">
+					<h2>Astroprisma Virtual Tabletop</h2>
+					<p>A browser-based virtual tabletop for <a href="https://www.astroprisma.com/" target="_blank">Astroprisma, by Crescent Chimera</a></p>
+					<a href="https://astroprismavue.dipper-digital.workers.dev/" target="_blank" rel="noopener noreferrer">Astroprisma →</a>
+					<p>Made with Vue</p>
+				</div>
+
+				<div class="project-card fourad">
+					<h2>Four Against Darkness</h2>
+					<small>(In development)</small>
+					<p>A browser-based virtual tabletop for <a href="https://www.ganeshagames.net/" target="_blank">Four Against Darkness by Andrea Sfiligoi.</a></p>
+					<a href="#" target="_blank" rel="noopener noreferrer" class="project-link">Coming Soon?</a>
+					<p>Made with React</p>
+				</div>
 			</section>
 		</main>
 		<Footer />
