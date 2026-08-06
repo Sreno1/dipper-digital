@@ -1,0 +1,87 @@
+---
+import "../styles/global.css";
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const PAGE_TITLE = "Espresso — Coffee Shop Game | Dipper Digital";
+const PAGE_DESCRIPTION = "Run a tiny coffee shop in Espresso, a cozy playable management game.";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={PAGE_TITLE} description={PAGE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main class="espresso-page">
+			<div class="espresso-heading">
+				<a href="/" class="back-link">← Dipper Digital</a>
+				<h1>Espresso</h1>
+				<p>Run a tiny coffee shop</p>
+			</div>
+			<div class="game-frame-wrap">
+				<iframe title="Espresso coffee shop game" src="/espresso-game/index.html" loading="eager"></iframe>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.espresso-page {
+		width: min(1280px, calc(100% - 2em));
+		max-width: none;
+		padding: 2em 1em 3em;
+	}
+	.espresso-heading {
+		text-align: center;
+		margin-bottom: 1.5em;
+	}
+	.back-link {
+		display: inline-block;
+		font-size: 0.85rem;
+		text-decoration: none;
+		margin-bottom: 1em;
+	}
+	.espresso-heading h1 {
+		margin-bottom: 0.15em;
+	}
+	.espresso-heading p {
+		margin: 0;
+		color: rgb(var(--gray));
+	}
+	.game-frame-wrap {
+		border: 1px solid var(--border-color);
+		border-radius: 14px;
+		overflow: hidden;
+		background: #19120e;
+		box-shadow: var(--box-shadow);
+	}
+	iframe {
+		display: block;
+		width: 100%;
+		height: min(900px, 78vh);
+		min-height: 680px;
+		border: 0;
+	}
+	@media (max-width: 720px) {
+		.espresso-page {
+			width: 100%;
+			padding: 1em 0 2em;
+		}
+		.espresso-heading {
+			padding: 0 1em;
+		}
+		.game-frame-wrap {
+			border-radius: 0;
+			border-left: 0;
+			border-right: 0;
+		}
+		iframe {
+			height: 850px;
+			min-height: 0;
+		}
+	}
+</style>
