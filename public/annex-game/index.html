@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ANNEX - Hidden Influence on a Public Map</title>
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <!-- Title Screen -->
+        <div id="screen-title" class="screen active">
+            <div class="title-container">
+                <h1 class="game-title">ANNEX</h1>
+                <p class="game-subtitle">Hidden Influence on a Public Map</p>
+                <div class="title-divider"></div>
+                <div class="menu-buttons">
+                    <button id="btn-play-ranked" class="btn btn-primary">
+                        Ranked
+                    </button>
+                    <button
+                        id="btn-play-extraction"
+                        class="btn btn-primary btn-extraction"
+                    >
+                        Extraction
+                    </button>
+                    <button id="btn-how-to-play" class="btn btn-secondary">
+                        How to Play
+                    </button>
+                </div>
+                <div class="title-meta-buttons">
+                    <button
+                        id="btn-reset-season"
+                        class="btn btn-ghost btn-small"
+                    >
+                        Seasonal Reset
+                    </button>
+                    <button
+                        id="btn-reset-all"
+                        class="btn btn-ghost btn-small btn-danger"
+                    >
+                        Reset All Progress
+                    </button>
+                </div>
+                <p class="version-tag">Prototype v0.5</p>
+            </div>
+        </div>
+
+        <!-- How to Play Screen -->
+        <div id="screen-how-to-play" class="screen">
+            <div class="how-to-play-container">
+                <button id="btn-back-title" class="btn btn-back">
+                    &larr; Back
+                </button>
+                <h2>How to Play</h2>
+                <div class="rules-grid">
+                    <div class="rule-card">
+                        <div class="rule-icon">&#x1F5FA;</div>
+                        <h3>The Board</h3>
+                        <p>
+                            <strong>9 territories</strong> connected in a
+                            network. Each has a point value (1-5). You and the
+                            AI take turns competing for control.
+                        </p>
+                    </div>
+                    <div class="rule-card">
+                        <div class="rule-icon">&#x1F3F4;</div>
+                        <h3>Claim</h3>
+                        <p>
+                            Place your flag on any
+                            <strong>unclaimed territory</strong>. This gives you
+                            <strong>+2 base influence</strong> there. Free
+                            &mdash; but visible to your opponent.
+                        </p>
+                    </div>
+                    <div class="rule-card">
+                        <div class="rule-icon">&#x1F0CF;</div>
+                        <h3>Fortify</h3>
+                        <p>
+                            Play a card from your hand
+                            <strong>face-down on ANY territory</strong>. Your
+                            opponent sees you placed a card, but not its
+                            strength (1&ndash;4).
+                        </p>
+                    </div>
+                    <div class="rule-card">
+                        <div class="rule-icon">&#x1F3AD;</div>
+                        <h3>Bluff</h3>
+                        <p>
+                            Drop a <strong>strength-1 card</strong> on the
+                            AI&rsquo;s territory &mdash; will it waste a strong
+                            card defending?
+                            <strong>Every placement is a mind game.</strong>
+                        </p>
+                    </div>
+                    <div class="rule-card">
+                        <div class="rule-icon">&#x26A1;</div>
+                        <h3>Resolution</h3>
+                        <p>
+                            When all actions are done, every card flips.
+                            <strong
+                                >Highest total influence wins each
+                                territory.</strong
+                            >
+                            Claim (+2) plus card strengths. Ties go to the flag
+                            holder.
+                        </p>
+                    </div>
+                    <div class="rule-card">
+                        <div class="rule-icon">&#x1F517;</div>
+                        <h3>Networks</h3>
+                        <p>
+                            Control
+                            <strong>3+ connected territories</strong> for bonus
+                            points: 3-chain&nbsp;=&nbsp;+3,
+                            4-chain&nbsp;=&nbsp;+5, 5-chain&nbsp;=&nbsp;+8. One
+                            well-placed card can shatter a chain.
+                        </p>
+                    </div>
+                </div>
+                <div class="rules-quickref">
+                    <h3>Quick Reference</h3>
+                    <table class="quickref-table">
+                        <tr>
+                            <td>Ranked hand</td>
+                            <td>5 cards: strengths 4, 3, 2, 1, 1</td>
+                        </tr>
+                        <tr>
+                            <td>Extraction hand</td>
+                            <td>
+                                6 cards: strengths 4, 3, 2, 2, 1, 1 + possible
+                                Wild card
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Claim influence</td>
+                            <td>+2 to whoever planted the flag</td>
+                        </tr>
+                        <tr>
+                            <td>Winning a territory</td>
+                            <td>Highest influence total (claim + cards)</td>
+                        </tr>
+                        <tr>
+                            <td>Tie-breaker</td>
+                            <td>The player with the flag wins ties</td>
+                        </tr>
+                        <tr>
+                            <td>Annexation</td>
+                            <td>
+                                Stealing a territory the opponent flagged
+                                &mdash; the game&rsquo;s signature move
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Terrain</td>
+                            <td>
+                                &#x26F0; High Ground (+1 defender) &middot;
+                                &#x1F32B; Fog (hidden cards) &middot; &#x1F52D;
+                                Observatory (intel) &middot; &#x1F6A7;
+                                Chokepoint (chain bonus) &middot; &#x1F525;
+                                Scorched Earth (annex&nbsp;=&nbsp;0&nbsp;pts)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Keyboard</td>
+                            <td>
+                                <kbd>C</kbd> Claim &middot; <kbd>F</kbd> Fortify
+                                &middot; <kbd>A</kbd> Ability &middot;
+                                <kbd>1</kbd>&ndash;<kbd>6</kbd> Select card
+                                &middot; <kbd>Esc</kbd> Cancel &middot;
+                                <kbd>Enter</kbd> Advance
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ranked: Map Select Screen -->
+        <div id="screen-map-select" class="screen">
+            <div class="map-select-container">
+                <button id="btn-back-title-2" class="btn btn-back">
+                    &larr; Back
+                </button>
+                <h2 class="map-select-title">Choose a Map</h2>
+                <p class="map-select-subtitle">
+                    Each map has a distinct layout and terrain composition.
+                    Click a map to start the match.
+                </p>
+                <div id="map-select-grid" class="map-select-grid">
+                    <!-- Populated by renderMapSelect() in ui.js -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Extraction: Lobby Screen -->
+        <div id="screen-extraction-lobby" class="screen">
+            <div class="lobby-container">
+                <button id="btn-back-title-3" class="btn btn-back">
+                    &larr; Back
+                </button>
+                <h2 class="lobby-title">Extraction</h2>
+                <p class="lobby-subtitle">
+                    Buy abilities &amp; terraforming tools. Set your wager.
+                    Enter the field.
+                </p>
+                <div id="extraction-lobby-content" class="lobby-content">
+                    <!-- Populated by renderExtractionLobby() in ui.js -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- Game Screen                                                   -->
+        <!-- ============================================================ -->
+        <div id="screen-game" class="screen">
+            <!-- Top Bar -->
+            <div id="top-bar">
+                <div class="top-bar-left">
+                    <span class="game-logo-small">ANNEX</span>
+                    <span id="turn-indicator" class="turn-indicator"></span>
+                </div>
+                <div class="top-bar-center">
+                    <div id="phase-indicator" class="phase-indicator">
+                        PLANNING
+                    </div>
+                    <!-- Tectonic shift warning (Extraction only) -->
+                    <div
+                        id="tectonic-warning-banner"
+                        class="tectonic-warning-banner hidden"
+                    ></div>
+                </div>
+                <div class="top-bar-right">
+                    <!-- Salvage counter (Extraction only) -->
+                    <div
+                        id="salvage-display"
+                        class="salvage-display"
+                        style="display: none"
+                    ></div>
+                    <div class="player-summary opponent-summary">
+                        <span class="summary-label">AI</span>
+                        <span
+                            id="ai-cards-remaining"
+                            class="summary-value cards-count"
+                            >5 cards</span
+                        >
+                    </div>
+                    <div class="player-summary player-summary-you">
+                        <span class="summary-label">YOU</span>
+                        <span
+                            id="player-cards-remaining"
+                            class="summary-value cards-count"
+                            >5 cards</span
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main game area: sidebar + map -->
+            <div id="game-body">
+                <!-- Left Sidebar: board state + action log -->
+                <div id="sidebar">
+                    <div id="info-panel">
+                        <div class="sidebar-section-title">Board State</div>
+                        <div id="info-summary"></div>
+                    </div>
+                    <div id="action-log">
+                        <div class="sidebar-section-title">Action Log</div>
+                        <div id="action-log-entries"></div>
+                    </div>
+                </div>
+
+                <!-- Map canvas + floating overlays -->
+                <div id="map-container">
+                    <canvas id="game-canvas"></canvas>
+
+                    <!-- Territory tooltip (follows mouse) -->
+                    <div id="territory-tooltip" class="tooltip hidden">
+                        <div class="tooltip-name"></div>
+                        <div class="tooltip-value"></div>
+                        <div class="tooltip-status"></div>
+                        <div class="tooltip-contested"></div>
+                        <div class="tooltip-terrain"></div>
+                        <div class="tooltip-influence"></div>
+                        <div class="tooltip-network"></div>
+                        <div class="tooltip-connections"></div>
+                        <div class="tooltip-entrench"></div>
+                    </div>
+
+                    <!-- Resolution: running score tally -->
+                    <div id="resolution-tally" class="res-tally hidden">
+                        <div class="res-tally-title">&#x26A1; RESOLUTION</div>
+                        <div class="res-tally-scores">
+                            <div class="res-tally-player">
+                                <span class="res-tally-label">YOU</span>
+                                <span
+                                    id="res-tally-player-pts"
+                                    class="res-tally-pts"
+                                    >0</span
+                                >
+                            </div>
+                            <div class="res-tally-divider">&mdash;</div>
+                            <div class="res-tally-ai">
+                                <span class="res-tally-label">AI</span>
+                                <span
+                                    id="res-tally-ai-pts"
+                                    class="res-tally-pts"
+                                    >0</span
+                                >
+                            </div>
+                        </div>
+                        <div id="res-tally-sub" class="res-tally-sub"></div>
+                    </div>
+
+                    <!-- Resolution: territory detail panel -->
+                    <div id="res-detail-panel" class="res-detail-panel hidden">
+                        <div class="res-detail-header">
+                            <span
+                                id="res-detail-name"
+                                class="res-detail-name"
+                            ></span>
+                            <span
+                                id="res-detail-value"
+                                class="res-detail-value"
+                            ></span>
+                        </div>
+                        <div class="res-detail-breakdown">
+                            <div class="res-detail-row player-row">
+                                <span class="res-detail-side-label">YOU</span>
+                                <div
+                                    class="res-detail-components"
+                                    id="res-detail-player-components"
+                                ></div>
+                                <div class="res-detail-bar-track">
+                                    <div
+                                        id="res-detail-player-bar"
+                                        class="res-detail-bar-fill player-fill"
+                                    ></div>
+                                </div>
+                                <span
+                                    id="res-detail-player-total"
+                                    class="res-detail-total"
+                                    >0</span
+                                >
+                            </div>
+                            <div class="res-detail-row ai-row">
+                                <span class="res-detail-side-label">AI</span>
+                                <div
+                                    class="res-detail-components"
+                                    id="res-detail-ai-components"
+                                ></div>
+                                <div class="res-detail-bar-track">
+                                    <div
+                                        id="res-detail-ai-bar"
+                                        class="res-detail-bar-fill ai-fill"
+                                    ></div>
+                                </div>
+                                <span
+                                    id="res-detail-ai-total"
+                                    class="res-detail-total"
+                                    >0</span
+                                >
+                            </div>
+                        </div>
+                        <div
+                            id="res-detail-result"
+                            class="res-detail-result"
+                        ></div>
+                        <button
+                            id="btn-res-next"
+                            class="btn btn-primary btn-res-next"
+                        >
+                            Next Territory &rarr;
+                        </button>
+                    </div>
+
+                    <!-- Resolution: network bonus panel -->
+                    <div
+                        id="res-network-panel"
+                        class="res-network-panel hidden"
+                    >
+                        <div class="res-network-title">
+                            &#x1F517; Network Bonuses
+                        </div>
+                        <div
+                            id="res-network-list"
+                            class="res-network-list"
+                        ></div>
+                        <button
+                            id="btn-res-network-next"
+                            class="btn btn-primary btn-res-next"
+                        >
+                            See Final Score &rarr;
+                        </button>
+                    </div>
+
+                    <!-- Resolution: final score / game over panel -->
+                    <div id="res-final-panel" class="res-final-panel hidden">
+                        <h2 id="res-final-title" class="res-final-title"></h2>
+                        <div id="res-final-scores" class="res-final-scores">
+                            <div class="res-final-score-col player-col">
+                                <span class="res-final-label">YOU</span>
+                                <span
+                                    id="res-final-player-pts"
+                                    class="res-final-pts"
+                                    >0</span
+                                >
+                            </div>
+                            <div class="res-final-vs">vs</div>
+                            <div class="res-final-score-col ai-col">
+                                <span class="res-final-label">AI</span>
+                                <span
+                                    id="res-final-ai-pts"
+                                    class="res-final-pts"
+                                    >0</span
+                                >
+                            </div>
+                        </div>
+                        <div
+                            id="res-final-breakdown"
+                            class="res-final-breakdown"
+                        ></div>
+                        <div class="res-final-buttons">
+                            <button id="btn-play-again" class="btn btn-primary">
+                                Play Again
+                            </button>
+                            <button
+                                id="btn-main-menu"
+                                class="btn btn-secondary"
+                            >
+                                Main Menu
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Observatory Intel Overlay (Extraction) -->
+                    <div
+                        id="observatory-intel-overlay"
+                        class="observatory-intel-overlay hidden"
+                    >
+                        <div
+                            id="observatory-intel-content"
+                            class="observatory-intel-content"
+                        ></div>
+                        <button
+                            id="btn-observatory-intel-close"
+                            class="btn btn-secondary"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+                <!-- /#map-container -->
+            </div>
+            <!-- /#game-body -->
+
+            <!-- Planning Panel (shown before first turn) -->
+            <div id="planning-panel" style="display: flex">
+                <div class="planning-content">
+                    <h2 class="planning-title">Your Hand</h2>
+                    <p class="planning-subtitle" id="planning-subtitle">
+                        You have <strong>5 influence cards</strong> to play on
+                        any territory. Decide where your power goes.
+                    </p>
+                    <div
+                        class="planning-cards-preview"
+                        id="planning-cards-preview"
+                    ></div>
+                    <div class="planning-tips">
+                        <div class="planning-tip">
+                            &#x1F3F4; <strong>Claim</strong> territories to
+                            plant your flag (+2 influence)
+                        </div>
+                        <div class="planning-tip">
+                            &#x1F0CF; <strong>Fortify</strong> any territory by
+                            selecting a card, then clicking the map
+                        </div>
+                        <div class="planning-tip">
+                            &#x1F3AD; <strong>Bluff</strong> by dropping weak
+                            cards on enemy territory
+                        </div>
+                    </div>
+                    <button
+                        id="btn-start-game"
+                        class="btn btn-primary btn-start-game"
+                    >
+                        Start Match &rarr;
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Panel (bottom, shown during ACTION phase) -->
+            <div id="action-panel" style="display: none">
+                <div id="action-buttons">
+                    <button id="btn-claim" class="btn btn-action" disabled>
+                        <span class="action-icon">&#x1F3F4;</span>
+                        <span class="action-label">Claim</span>
+                        <span class="action-hint">click territory</span>
+                    </button>
+                    <button id="btn-fortify" class="btn btn-action" disabled>
+                        <span class="action-icon">&#x1F0CF;</span>
+                        <span class="action-label">Fortify</span>
+                        <span class="action-hint">select card first</span>
+                    </button>
+                    <button
+                        id="btn-pass"
+                        class="btn btn-action btn-pass"
+                        disabled
+                    >
+                        <span class="action-icon">&#x23ED;</span>
+                        <span class="action-label">Pass</span>
+                    </button>
+                    <!-- Observatory intel: shown when player holds Observatory in Extraction -->
+                    <button
+                        id="btn-observatory-intel"
+                        class="btn btn-action btn-observatory hidden"
+                    >
+                        <span class="action-icon">&#x1F52D;</span>
+                        <span class="action-label">Intel</span>
+                    </button>
+                    <!-- Inline ability buttons injected here by ui.js for Extraction mode -->
+                    <div id="ability-buttons"></div>
+                </div>
+                <div id="hand-container">
+                    <div id="hand-label" class="hand-label">Your Hand</div>
+                    <div id="hand-cards"></div>
+                </div>
+            </div>
+
+            <!-- Terraform Panel (shown during TERRAFORMING phase) -->
+            <div id="terraform-panel" class="terraform-panel hidden">
+                <div class="terraform-content">
+                    <h3 class="terraform-title">
+                        &#x1F528; Terraforming Phase
+                    </h3>
+                    <p class="terraform-subtitle" id="terraform-subtitle">
+                        Modify the map before the match begins.
+                    </p>
+                    <div
+                        id="terraform-tool-info"
+                        class="terraform-tool-info"
+                    ></div>
+                </div>
+            </div>
+
+            <!-- Notification area (toast messages) -->
+            <div id="notification-area"></div>
+        </div>
+        <!-- /#screen-game -->
+
+        <!-- Bootstrap: load the modular entry point -->
+        <script type="module">
+            console.log("[ANNEX] Bootstrap script starting...");
+            let initFn;
+            try {
+                const mod = await import("./src/game.js");
+                initFn = mod.init;
+                console.log("[ANNEX] game.js loaded OK. init =", typeof initFn);
+            } catch (e) {
+                console.error("[ANNEX] FAILED to import game.js:", e);
+                document.body.insertAdjacentHTML(
+                    "beforeend",
+                    `<div style="position:fixed;inset:0;z-index:9999;background:#1e0000;color:#ff6b6b;font-family:monospace;padding:2rem;overflow:auto;">
+                        <h2>⚠ Module Load Error</h2>
+                        <pre>${e.stack || e.message}</pre>
+                        <p>Check the browser console (F12) for full details.</p>
+                    </div>`,
+                );
+            }
+            if (typeof initFn === "function") {
+                try {
+                    console.log("[ANNEX] Calling init()...");
+                    if (document.readyState === "loading") {
+                        document.addEventListener("DOMContentLoaded", () => {
+                            try {
+                                initFn();
+                                console.log("[ANNEX] init() completed.");
+                            } catch (e) {
+                                console.error("[ANNEX] init() threw:", e);
+                            }
+                        });
+                    } else {
+                        initFn();
+                        console.log("[ANNEX] init() completed.");
+                    }
+                } catch (e) {
+                    console.error("[ANNEX] init() threw:", e);
+                }
+            }
+        </script>
+    </body>
+</html>
