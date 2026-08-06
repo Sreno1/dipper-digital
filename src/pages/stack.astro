@@ -1,0 +1,88 @@
+---
+import "../styles/global.css";
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const PAGE_TITLE = "STACK — A Tower-Building Bidding Game | Dipper Digital";
+const PAGE_DESCRIPTION = "Play STACK, a tower-building bidding game about risk, collapse, and outlasting your opponent.";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={PAGE_TITLE} description={PAGE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main class="stack-page">
+			<div class="stack-heading">
+				<a href="/" class="back-link">← Dipper Digital</a>
+				<h1>STACK</h1>
+				<p>A tower-building bidding game</p>
+			</div>
+			<div class="game-frame-wrap">
+				<iframe title="STACK prototype game" src="/stack-game/index.html" loading="eager"></iframe>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.stack-page {
+		width: min(1100px, calc(100% - 2em));
+		max-width: none;
+		padding: 2em 1em 3em;
+	}
+	.stack-heading {
+		text-align: center;
+		margin-bottom: 1.5em;
+	}
+	.back-link {
+		display: inline-block;
+		font-size: 0.85rem;
+		text-decoration: none;
+		margin-bottom: 1em;
+	}
+	.stack-heading h1 {
+		margin-bottom: 0.15em;
+		letter-spacing: 0.1em;
+	}
+	.stack-heading p {
+		margin: 0;
+		color: rgb(var(--gray));
+	}
+	.game-frame-wrap {
+		border: 1px solid var(--border-color);
+		border-radius: 14px;
+		overflow: hidden;
+		background: #080b12;
+		box-shadow: var(--box-shadow);
+	}
+	iframe {
+		display: block;
+		width: 100%;
+		height: min(900px, 78vh);
+		min-height: 680px;
+		border: 0;
+	}
+	@media (max-width: 720px) {
+		.stack-page {
+			width: 100%;
+			padding: 1em 0 2em;
+		}
+		.stack-heading {
+			padding: 0 1em;
+		}
+		.game-frame-wrap {
+			border-radius: 0;
+			border-left: 0;
+			border-right: 0;
+		}
+		iframe {
+			height: 850px;
+			min-height: 0;
+		}
+	}
+</style>

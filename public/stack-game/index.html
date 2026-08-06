@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STACK</title>
+  <style>
+    html, body, #root { margin: 0; min-height: 100%; width: 100%; }
+    body { background: #080b12; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/@babel/standalone@7.26.9/babel.min.js"></script>
+  <script>
+    fetch('./Stack_v5.jsx')
+      .then((response) => response.text())
+      .then((source) => {
+        const withoutImports = source
+          .replace(/^import[^;]+;\s*/m, '')
+          .replace('export default function StackGame()', 'function StackGame()');
+        const compiled = Babel.transform(withoutImports, { presets: ['react'] }).code;
+        const moduleFactory = new Function(
+          'React',
+          `const { useState, useEffect, useCallback, useRef } = React;\n${compiled}\nreturn StackGame;`,
+        );
+        const StackGame = moduleFactory(React);
+        ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(StackGame));
+      })
+      .catch((error) => {
+        document.getElementById('root').textContent = 'STACK could not load.';
+        console.error(error);
+      });
+  </script>
+</body>
+</html>
