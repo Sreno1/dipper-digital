@@ -1,0 +1,252 @@
+---
+import "../styles/global.css";
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const PLAY_URL = "https://play.google.com/store/apps/details?id=com.dipperdigital.picturedprojects";
+
+const PAGE_TITLE = "Pictured Projects — Job Site Photo Organizer | Dipper Digital";
+const PAGE_DESCRIPTION = "Tag, sort, and search job site photos by site, date, or map pin. No sign-in, no cloud upload, no pet photos in the way.";
+
+const features = [
+	{
+		image: "/pictured-projects/screen-photos.jpg",
+		title: "Grouped by job site",
+		body: "Photos sort themselves into taggable groups per job site. This means you won't need to scroll through your entire camera roll to find one photo from a specific job.",
+	},
+	{
+		image: "/pictured-projects/screen-timeline.jpg",
+		title: "Timeline view",
+		body: "See every job's progress in dated order, with notes and tags attached to each photo. This could be used to log any activity.",
+	},
+	{
+		image: "/pictured-projects/screen-map.jpg",
+		title: "Map view",
+		body: "Every geo-tagged photo plots on a map by job site, so you can easily jump from your coastal job, to your city job, to your rural job.",
+	},
+	{
+		image: "/pictured-projects/screen-sites.jpg",
+		title: "Reusable job sites",
+		body: "Set and forget your sites. Every photo you tag to a site stays organized together automatically.",
+	},
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={PAGE_TITLE} description={PAGE_DESCRIPTION} image="/pictured-projects/feature-graphic.png" />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="hero">
+				<img class="app-icon" src="/pictured-projects/icon.png" alt="Pictured Projects app icon" width="96" height="96" />
+				<h1>Pictured Projects</h1>
+				<p class="tagline">
+					Helps organize photos from specific job sites into taggable groups. Instead of scrolling through your
+					default camera gallery with all your pet photos when trying to find a specific photo from a specific job
+					on a certain day, use Pictured Projects to find what you're looking for right away.
+				</p>
+				<div class="cta-row">
+					<a class="cta-primary" href={PLAY_URL} target="_blank" rel="noopener noreferrer">Get it on Google Play →</a>
+					<a class="cta-secondary" href="#video">Watch the demo</a>
+				</div>
+				<p class="platform-note">Free with ads · Android · One-time $3.99 Remove Ads upgrade</p>
+			</section>
+
+			<section class="hero-shot">
+				<img src="/pictured-projects/screen-hero.jpg" alt="Pictured Projects photo library, showing job sites grouped with a photo detail panel" loading="eager" />
+			</section>
+
+			<section class="local-first">
+				<h2>Everything stays on your phone</h2>
+				<p>
+					You don't sign in, and nothing gets uploaded to a server. Your photos stay exactly where they already
+					are on your device — Pictured Projects just organizes and browses them more efficiently. Tag your job
+					site images, then sort and filter them on a map or a timeline.
+				</p>
+			</section>
+
+			<section class="features">
+				{
+					features.map((f) => (
+						<div class="feature-card">
+							<img src={f.image} alt={f.title} loading="lazy" />
+							<h3>{f.title}</h3>
+							<p>{f.body}</p>
+						</div>
+					))
+				}
+			</section>
+
+			<section id="video" class="video-coming-soon">
+				<div class="video-placeholder">
+					<span class="play-glyph" aria-hidden="true">▶</span>
+					<h2>Demo video coming soon</h2>
+					<p>A short walkthrough of tagging a photo, seeing it land on the map, and browsing the timeline is in the works.</p>
+				</div>
+			</section>
+
+			<section class="closing-cta">
+				<h2>Stop losing job photos in your camera roll</h2>
+				<a class="cta-primary" href={PLAY_URL} target="_blank" rel="noopener noreferrer">Get it on Google Play →</a>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.hero {
+		text-align: center;
+		padding: 3em 1em 1.5em;
+		max-width: 640px;
+		margin: 0 auto;
+	}
+	.app-icon {
+		border-radius: 22px;
+		box-shadow: var(--box-shadow);
+		margin-bottom: 1em;
+	}
+	.hero h1 {
+		font-size: 2.6rem;
+		margin-bottom: 0.5em;
+	}
+	.tagline {
+		font-size: 1.05rem;
+		color: rgb(var(--gray));
+		line-height: 1.6;
+	}
+	.cta-row {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.75em;
+		margin: 1.5em 0 0.75em;
+	}
+	.cta-primary {
+		display: inline-block;
+		background: var(--accent);
+		color: white;
+		font-weight: 700;
+		padding: 0.85em 1.5em;
+		border-radius: 10px;
+		text-decoration: none;
+		transition: background 0.2s ease;
+	}
+	.cta-primary:hover {
+		background: var(--accent-dark);
+		color: white;
+	}
+	.cta-secondary {
+		display: inline-block;
+		padding: 0.85em 1.5em;
+		border-radius: 10px;
+		border: 1px solid var(--border-color);
+		color: var(--text-primary);
+		text-decoration: none;
+		font-weight: 700;
+	}
+	.cta-secondary:hover {
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+	.platform-note {
+		font-size: 0.85rem;
+		color: rgb(var(--gray));
+	}
+
+	.hero-shot {
+		max-width: 900px;
+		margin: 1em auto 3em;
+		padding: 0 1em;
+	}
+	.hero-shot img {
+		width: 100%;
+		border-radius: 12px;
+		box-shadow: var(--box-shadow);
+	}
+
+	.local-first {
+		max-width: 640px;
+		margin: 0 auto 3em;
+		padding: 0 1em;
+		text-align: center;
+	}
+	.local-first p {
+		color: rgb(var(--gray));
+		font-size: 1.05rem;
+	}
+
+	.features {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 2em;
+		max-width: 1100px;
+		margin: 0 auto 3em;
+		padding: 0 1em;
+	}
+	.feature-card {
+		border: 1px solid var(--border-color);
+		background: var(--card-bg);
+		border-radius: 12px;
+		overflow: hidden;
+		box-shadow: var(--box-shadow);
+	}
+	.feature-card img {
+		width: 100%;
+		display: block;
+		border-radius: 0;
+	}
+	.feature-card h3 {
+		margin: 1em 1em 0.4em;
+		font-size: 1.2rem;
+	}
+	.feature-card p {
+		margin: 0 1em 1.2em;
+		color: rgb(var(--gray));
+		font-size: 0.95rem;
+	}
+
+	.video-coming-soon {
+		max-width: 720px;
+		margin: 0 auto 3em;
+		padding: 0 1em;
+	}
+	.video-placeholder {
+		border: 2px dashed var(--border-color);
+		border-radius: 12px;
+		padding: 3em 1.5em;
+		text-align: center;
+		background: var(--bg-secondary);
+	}
+	.play-glyph {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 3em;
+		height: 3em;
+		border-radius: 50%;
+		background: var(--accent);
+		color: white;
+		font-size: 1.1rem;
+		margin-bottom: 0.75em;
+	}
+	.video-placeholder h2 {
+		margin-bottom: 0.4em;
+	}
+	.video-placeholder p {
+		color: rgb(var(--gray));
+		margin: 0;
+	}
+
+	.closing-cta {
+		text-align: center;
+		padding: 2em 1em 4em;
+	}
+	.closing-cta h2 {
+		margin-bottom: 1em;
+	}
+</style>
